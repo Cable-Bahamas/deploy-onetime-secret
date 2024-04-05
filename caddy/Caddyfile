@@ -1,0 +1,3 @@
+onetime.localhost {
+    reverse_proxy http://onetime-app:7143
+}

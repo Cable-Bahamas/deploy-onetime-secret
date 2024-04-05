@@ -1,0 +1,68 @@
+services:
+  caddy:
+    container_name: reverse-proxy
+    image: caddy:2.7.5-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    networks:
+      - onetime-secret-network
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy-data:/data
+    depends_on:
+      - onetime-app
+
+  onetime-app:
+    container_name: onetime-app
+    image: cblquincy/cbl-onetime-secret:latest
+    restart: unless-stopped
+    env_file:
+      - ./app/.env
+    stdin_open: true
+    tty: true
+    command: ["bundle", "exec", "thin", "-R", "config.ru", "-a", "0.0.0.0", "-p", "7143", "start"]
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "60m"
+        max-file: "3"
+    ports:
+      - 7143:7143
+    # deploy:
+    #   replicas: 5
+    volumes:
+      - ./app/conf:/app/etc/conf
+    networks:
+      - onetime-secret-network
+    depends_on:
+      redis:
+        condition: service_healthy 
+
+  redis:
+    image: redis:7.0-alpine
+    restart: unless-stopped
+    container_name: onetime-redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - onetime-secret-network
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+
+networks:
+  onetime-secret-network:
+    name: onetime-secret
+    driver: bridge
+
+volumes:
+  redis-data:
+  caddy-data:
