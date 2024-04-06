@@ -1,20 +1,4 @@
 services:
-  caddy:
-    container_name: reverse-proxy
-    image: caddy:2.7.5-alpine
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    networks:
-      - onetime-secret-network
-    volumes:
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
-      - caddy-data:/data
-    depends_on:
-      - onetime-app
-
   onetime-app:
     container_name: onetime-app
     image: cblquincy/cbl-onetime-secret:latest
@@ -31,8 +15,6 @@ services:
         max-file: "3"
     ports:
       - 7143:7143
-    # deploy:
-    #   replicas: 5
     volumes:
       - ./app/conf:/app/etc/conf
     networks:
