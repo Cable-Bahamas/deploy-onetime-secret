@@ -1,7 +1,7 @@
 services:
   onetime-app:
     container_name: onetime-app
-    image: cblquincy/cbl-onetime-secret:latest
+    image: cblquincy/cbl-onetime-secret:saundersconsultants
     restart: unless-stopped
     env_file:
       - ./app/.env
