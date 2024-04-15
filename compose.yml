@@ -24,7 +24,6 @@ services:
     stdin_open: true
     tty: true
     command: ["bundle", "exec", "thin", "-R", "config.ru", "-a", "0.0.0.0", "-p", "7143", "start"]
-    # command: ["tail", "-f", "/dev/null"]
     logging:
       driver: "json-file"
       options:
