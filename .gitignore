@@ -1,4 +1,4 @@
-conf
+config
 .env
 CaddyFile
 redis.conf
