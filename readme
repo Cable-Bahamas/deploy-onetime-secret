@@ -24,3 +24,27 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 # Start Docker
 
 sudo service docker start
+
+
+#Working With Git
+
+#Clone the Repository
+
+git clone <repository-url>
+
+#Switch to a separate branch
+
+git checkout -b <branch-name>
+
+#Make changes
+
+#Commit changes
+
+git add .
+
+git commit -m <message>
+
+#push changes up to repo
+
+git push origin <branch-name>
+
