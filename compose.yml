@@ -56,7 +56,7 @@ services:
         max-size: "60m"
         max-file: "3"
     ports:
-      - 7143:7143
+      - 7144:7143
     volumes:
       - ./app/cablebahamas/config:/app/etc/config
       - ./redis/redis.conf:/app/etc/redis.conf
