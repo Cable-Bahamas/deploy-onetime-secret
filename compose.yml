@@ -17,7 +17,7 @@ services:
 
   onetime-app:
     container_name: onetime-app
-    image: onetimesecret:gittest
+    image: cblquincy/cbl-onetime-secret:latest
     restart: unless-stopped
     env_file:
       - ./app/.env
