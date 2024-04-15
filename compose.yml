@@ -16,7 +16,8 @@ services:
     ports:
       - 7143:7143
     volumes:
-      - ./app/conf:/app/etc/conf
+      - ./app/config:/app/etc/config
+      - ./redis/redis.conf:/app/etc/redis.conf
     networks:
       - onetime-secret-network
     depends_on:
