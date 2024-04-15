@@ -21,7 +21,7 @@ services:
     image: cblquincy/cbl-onetime-secret:aliv
     restart: unless-stopped
     env_file:
-      - ./app/.env
+      - ./app/aliv/.env
     stdin_open: true
     tty: true
     command: ["bundle", "exec", "thin", "-R", "config.ru", "-a", "0.0.0.0", "-p", "7143", "start"]
@@ -46,7 +46,7 @@ services:
     image: cblquincy/cbl-onetime-secret:cablebahamas
     restart: unless-stopped
     env_file:
-      - ./app/.env
+      - ./app/cablebahamas/.env
     stdin_open: true
     tty: true
     command: ["bundle", "exec", "thin", "-R", "config.ru", "-a", "0.0.0.0", "-p", "7143", "start"]
